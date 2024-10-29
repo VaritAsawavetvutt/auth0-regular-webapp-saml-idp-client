@@ -20,8 +20,8 @@
     "express-jwt": "^5.1.0",
     "express-session": "^1.11.3",
     "morgan": "^1.8.1",
-    "passport": "^0.3.0",
-    "passport-saml": "0.33.0",
+    "passport": "^0.6.0",
+    "@node-saml/passport-saml": "^5.0.0",
     "pug": "~2.0.0-beta11",
     "serve-favicon": "^2.4.0"
   }

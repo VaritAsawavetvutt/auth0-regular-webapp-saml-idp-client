@@ -21,20 +21,19 @@ router.post('/callback', (req, res, next) => {
     console.log('Inside passport.authenticate callback');
     console.log('Error:', err);
 
-    if (err) {
-      console.error('SAML Error:', err);
-      // Log the SAML response for debugging
-      console.log('SAML Response:', req.body.SAMLResponse);
-      // Optionally decode and log the SAML response
-      try {
-        const decodedResponse = Buffer.from(req.body.SAMLResponse, 'base64').toString('utf8');
-        console.log('Decoded SAML Response:', decodedResponse);
-      } catch (decodeError) {
-        console.error('Error decoding SAML Response:', decodeError);
-      }
+    console.error('SAML Error:', err);
+    // Log the SAML response for debugging
+    console.log('SAML Response:', req.body.SAMLResponse);
+    // Optionally decode and log the SAML response
+    try {
+      const decodedSAMLResponse = Buffer.from(req.body.SAMLResponse, 'base64').toString('utf8');
+      console.log('Decoded SAML Response:', decodedSAMLResponse);
+      return res.render('saml-response', { decodedSAMLResponse });
+    } catch (decodeError) {
+      console.error('Error decoding SAML Response:', decodeError);
     }
-
-    return res.redirect('/show-saml-response');
+    
+    //return res.redirect('/show-saml-response');
 
     // req.logIn(user, (loginErr) => {
     //   if (loginErr) {
@@ -44,11 +43,6 @@ router.post('/callback', (req, res, next) => {
     //   return res.redirect('/user');
     // });
   })(req, res, next);
-});
-
-router.get('/show-saml-response', (req, res) => {
-  const decodedSAMLResponse = req.session.decodedSAMLResponse || 'No SAML response available';
-  res.render('saml-response', { decodedSAMLResponse });
 });
 
 router.get('/logout', function (req, res, next) {

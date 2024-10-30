@@ -33,15 +33,6 @@ router.post('/callback', (req, res, next) => {
       console.error('Error decoding SAML Response:', decodeError);
     }
     
-    //return res.redirect('/show-saml-response');
-
-    // req.logIn(user, (loginErr) => {
-    //   if (loginErr) {
-    //     console.error('Login Error:', loginErr);
-    //     return res.redirect('/failure');
-    //   }
-    //   return res.redirect('/user');
-    // });
   })(req, res, next);
 });
 
